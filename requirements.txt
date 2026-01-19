@@ -1,0 +1,16 @@
+# --- Core Framework ---
+langchain>=1.0.0
+langchain-community>=0.3.0
+langgraph>=0.3.0
+
+# --- Model Integration ---
+langchain-ollama>=0.2.0
+
+# --- Model Context Protocol (MCP) ---
+mcp>=1.0.0
+langchain-mcp-adapters>=0.1.0
+
+# --- Web Server & API ---
+fastapi>=0.110.0
+uvicorn>=0.30.0
+requests>=2.31.0
