@@ -1,21 +1,25 @@
 import asyncio
+import os
+import uvicorn
+
+from dotenv import load_dotenv
+
 from fastapi import FastAPI, Request
 from langchain_ollama import ChatOllama
 
 from contextlib import asynccontextmanager
 from langchain.agents import create_agent 
 from langchain_mcp_adapters.client import MultiServerMCPClient
-import uvicorn
 
+
+#Load variables from the .env file
+load_dotenv()
 
 # Configuration
 
-#OLLAMA_BASE_URL = "http://localhost:11434"
-#MCP_SERVER_URL = "http://localhost:8888/mcp"
-#MODEL = "qwen3:8b" 
-OLLAMA_BASE_URL = "http://rpi5.local:11434"
-MCP_SERVER_URL = "http://localhost:8888/mcp"
-MODEL = "qwen2.5:3b" 
+OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL","http://localhost:11434")
+MCP_SERVER_URL = os.getenv("MCP_SERVER_URL","http://localhost:8888/mcp")
+MODEL = os.getenv("MODEL","qwen2.5:3b")
 
 mcp_tools = []
 mcp_client = None
@@ -23,7 +27,7 @@ mcp_client = None
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     global mcp_tools, mcp_client
-    
+
     # --- Startup Logic ---
     print("Initializing Agent & MCP Connection...")
     
@@ -33,7 +37,8 @@ async def lifespan(app: FastAPI):
     
     # Load tools once into memory
     mcp_tools = await mcp_client.get_tools()
-    print(f"Loaded {len(mcp_tools)} tools from MCP.")
+    
+    print(f"Loaded {len(mcp_tools)} tools from MCP Server.")
     
     yield  # The app runs here
     
