@@ -57,15 +57,12 @@ llm = ChatOllama(base_url=OLLAMA_BASE_URL, model=MODEL, temperature=0)
 async def handle_prompt(request: Request):
     data = await request.json()
     user_input = data.get("prompt")
-
-    # Fetch available tools from MCP
-    tools = await mcp_client.get_tools()
     
     # NEW: Use create_agent with 'system_prompt' parameter
     # This replaces the need for the manually structured ChatPromptTemplate
     agent_executor = create_agent(
         llm, 
-        tools, 
+        mcp_tools, 
         system_prompt="You are a Geolocation Agent. Use your tools to find coordinates, "
                       "calculate shortest paths, and generate drive-time polygons."
     )
