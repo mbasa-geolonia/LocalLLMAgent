@@ -64,7 +64,8 @@ async def handle_prompt(request: Request):
         llm, 
         mcp_tools, 
         system_prompt="You are a Geolocation Agent. Use your tools to find coordinates, "
-                      "calculate shortest paths, and generate drive-time polygons."
+                      "calculate shortest paths, and generate drive-time polygons.",
+        debug=False        
     )
     
     # Invoke using the modern 'messages' schema
