@@ -33,7 +33,7 @@ Chat Agent that uses the Python LangChain library to test Ollama based Local LLM
   ```
 
 ### Note
-  If `Ollama`  and the `MCP Services` servers are installed in remotely such as in an AWS EC2 server,  
+  If `Ollama`  and the `MCP Services` servers are installed in remotely such as in an AWS EC2 server,
   and is only accessible via a SSH connection, it is possoble to create a secure tunnel first then this 
   application will be able to connect to the servers locally. 
 
