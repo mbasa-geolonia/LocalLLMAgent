@@ -51,7 +51,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 # Initialize the Chat Model
-llm = ChatOllama(base_url=OLLAMA_BASE_URL, model=MODEL, temperature=0)
+llm = ChatOllama(base_url=OLLAMA_BASE_URL, model=MODEL, temperature=0, reasoning=False)
 
 @app.post("/prompt")
 async def handle_prompt(request: Request):
